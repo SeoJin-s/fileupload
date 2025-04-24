@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>첨부파일 삭제 확인</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+  <div class="container" style="max-width: 400px;">
+    <h4>📎 첨부파일 삭제</h4>
+    <form method="post" action="/removeBoardfile">
+      <input type="hidden" name="fno" value="{{fno}}">
+      <input type="hidden" name="bno" value="{{bno}}">
+      <div class="mb-3">
+        <label class="form-label">게시글 비밀번호</label>
+        <input type="password" name="pw" class="form-control" required>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-danger w-50 me-2">🗑 삭제</button>
+        <a href="/boardOne?bno={{bno}}" class="btn btn-outline-secondary w-50">취소</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

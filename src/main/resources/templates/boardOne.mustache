@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>📌 게시글 상세</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    .insta-post-container {
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .insta-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+    }
+    .insta-header .title {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .insta-user {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0;
+    }
+    .insta-user img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .insta-image {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border: 1px solid #eee;
+    }
+    .insta-meta {
+      font-size: 0.9rem;
+      color: #888;
+    }
+    .insta-content {
+      padding: 0.5rem 0;
+    }
+    .insta-buttons a {
+      margin-right: 0.5rem;
+    }
+    .file-delete-btn {
+      font-size: 0.8rem;
+      margin-top: 0.2rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="insta-post-container">
+<!-- 상단 고정 로고 바 -->
+<div class="position-fixed top-0 start-0 end-0 bg-white border-bottom text-center py-2" style="z-index: 1000;">
+  <img src="/img/instagram-logo.png" height="36" alt="Instagram Logo">
+</div>
+  <!-- 상단 네비 -->
+  <div class="insta-header border-bottom">
+  <a href="/boardList" class="text-dark text-decoration-none fs-5">
+    <i class="bi bi-chevron-left"></i>
+  </a>
+  <span class="title ms-2">상세 보기</span>
+</div>
+<!-- 상단 메뉴 우측 점 세개 -->
+<div class="dropdown text-end mb-2">
+  <button class="btn btn-sm border-0" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-three-dots fs-5"></i>
+  </button>
+  <ul class="dropdown-menu text-end">
+    <li>
+     <a class="dropdown-item text-secondary" href="/modifyBoard?bno={{boardMapping.bno}}">
+  ✏️ 수정
+</a>
+    </li>
+    <li>
+      <a class="dropdown-item text-danger" href="/removeBoardConfirm?bno={{boardMapping.bno}}">
+        🗑 삭제
+      </a>
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li>
+      <a class="dropdown-item" href="/boardList">
+        📋 뒤로
+      </a>
+    </li>
+  </ul>
+</div>
+
+  <!-- 사용자 정보 -->
+  <div class="insta-user">
+    <img src="/img/jin.png" alt="프로필">
+    <div>
+      <strong>조서진</strong><br>
+      <a href="#" class="insta-meta text-decoration-none">위치 추가</a>
+    </div>
+  </div>
+
+  <!-- 이미지 -->
+  {{#fileList}}
+    {{#isImage}}
+      <img src="/upload/{{fname}}.{{fext}}" class="insta-image" alt="{{foriginname}}">
+    {{/isImage}}
+  {{/fileList}}
+
+  <!-- 게시글 내용 -->
+  <div class="insta-content">
+    {{boardMapping.title}}
+  </div>
+
+  <!-- 첨부파일 (이미지 외 파일) -->
+  {{#fileList}}
+    {{^isImage}}
+      <div class="border p-2 rounded mb-2">
+        📄 {{foriginname}} ({{fsize}} bytes)
+        <form method="get" action="/removeBoardfile" class="file-delete-btn">
+          <input type="hidden" name="fno" value="{{fno}}">
+          <input type="hidden" name="bno" value="{{boardMapping.bno}}">
+          <button type="submit" class="btn btn-sm btn-outline-danger">삭제</button>
+        </form>
+      </div>
+    {{/isImage}}
+  {{/fileList}}
+
+</div>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>

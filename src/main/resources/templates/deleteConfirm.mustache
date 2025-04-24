@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 삭제 확인</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #fafafa;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    .delete-container {
+      max-width: 400px;
+      margin: 80px auto;
+      background-color: #fff;
+      border: 1px solid #dbdbdb;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      padding: 2rem;
+    }
+    .delete-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #262626;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="delete-container">
+    <div class="delete-title">게시글 삭제</div>
+    <form method="post" action="/removeBoard">
+      <input type="hidden" name="bno" value="{{bno}}">
+      <div class="mb-3">
+        <label class="form-label">비밀번호를 입력하세요</label>
+        <input type="password" name="pw" class="form-control" required>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-danger w-50 me-2"
+          onclick="return confirm('첨부 파일이 있습니다.정말 삭제하시겠습니까?')">🗑 삭제</button>
+        <a href="/boardOne?bno={{bno}}" class="btn btn-outline-secondary w-50">취소</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
